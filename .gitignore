@@ -1,6 +1,14 @@
 node_modules/
 dist/
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+backend/data/*.db
+backend/data/*.db-*
+backend/data/*.log
 .npm-cache/
+.uv-cache/
 .playwright-cli/
 output/playwright/
 .env

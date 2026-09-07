@@ -1,4 +1,4 @@
-export type View = "buyer" | "seller";
+export type View = "market" | "seller";
 
 export type ProviderId = "deepseek" | "kimi" | "minimax" | "glm";
 
@@ -9,47 +9,82 @@ export interface ModelMarket {
   shortName: string;
   capability: string;
   color: string;
-  baseCost: number;
 }
 
-export interface SellerSupply {
+export type GatewayMode = "live" | "offline";
+export type PlatformStatus = "ok" | "degraded";
+export type SupplyHealthStatus =
+  | "healthy"
+  | "degraded"
+  | "open"
+  | "half_open";
+
+export interface GatewayStatus {
+  mode: GatewayMode;
+  version: string;
+  configuredProviders: number;
+  supportedModels: string[];
+}
+
+export interface InfrastructureSummary {
+  totalRequests: number;
+  successRate: number;
+  pendingCny: number;
+  lastProbeAt: string | null;
+}
+
+export interface LiveSupply {
   id: string;
-  alias: string;
-  modelId: string;
-  provider: ProviderId;
-  remainingBudget: number;
-  listedBudget: number;
-  payoutRate: number;
+  provider: string;
+  model: string;
+  models: string[];
+  healthStatus: SupplyHealthStatus;
   reliability: number;
-  latencyMs: number;
-  online: boolean;
-  verified: boolean;
-  pendingIncome: number;
-  isMine?: boolean;
+  latencyMs: number | null;
+  consecutiveFailures: number;
+  available: boolean;
 }
 
-export interface RouteEvent {
-  label: string;
-  detail: string;
-  state: "done" | "active" | "muted" | "warning";
-}
-
-export interface TradeRecord {
+export interface AuditRecord {
   id: string;
-  time: string;
-  modelName: string;
-  sellerAlias: string;
-  officialCost: number;
-  buyerPaid: number;
-  sellerIncome: number;
-  platformFee: number;
-  inputTokens: number;
-  outputTokens: number;
-  switched: boolean;
+  supplyId: string;
+  checkedAt: string;
+  success: boolean;
+  latencyMs: number | null;
+  checkType: string;
+  score: number;
+  detail: string;
 }
 
-export interface DemoState {
-  buyerBalance: number;
-  sellers: SellerSupply[];
-  trades: TradeRecord[];
+export interface InfrastructureStatus {
+  status: PlatformStatus;
+  gateway: GatewayStatus;
+  summary: InfrastructureSummary;
+  supplies: LiveSupply[];
+  recentAudits: AuditRecord[];
+}
+
+export type ConnectionPhase = "loading" | "online" | "offline";
+
+export interface InfrastructureConnection {
+  phase: ConnectionPhase;
+  snapshot: InfrastructureStatus | null;
+  error: string | null;
+  fetchedAt: string | null;
+  lastSuccessAt: string | null;
+}
+
+export interface ModelMarketRow {
+  id: string;
+  name: string;
+  shortName: string;
+  capability: string;
+  color: string;
+  provider: string;
+  supported: boolean;
+  supplyCount: number | null;
+  availableCount: number | null;
+  reliability: number | null;
+  latencyMs: number | null;
+  healthStatus: SupplyHealthStatus | "unknown";
 }

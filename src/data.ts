@@ -1,6 +1,4 @@
-import type { DemoState, ModelMarket, SellerSupply } from "./types";
-
-export const PLATFORM_FEE_RATE = 0.06;
+import type { ModelMarket, SupplyHealthStatus } from "./types";
 
 export const models: ModelMarket[] = [
   {
@@ -10,7 +8,6 @@ export const models: ModelMarket[] = [
     shortName: "DS",
     capability: "代码与推理",
     color: "#3857d6",
-    baseCost: 0.82,
   },
   {
     id: "kimi-k2-6",
@@ -19,7 +16,6 @@ export const models: ModelMarket[] = [
     shortName: "KM",
     capability: "长文本与搜索",
     color: "#7956d8",
-    baseCost: 0.96,
   },
   {
     id: "minimax-m2-7",
@@ -28,7 +24,6 @@ export const models: ModelMarket[] = [
     shortName: "MM",
     capability: "Agent 与工具",
     color: "#d66a34",
-    baseCost: 0.76,
   },
   {
     id: "glm-5-turbo",
@@ -37,156 +32,22 @@ export const models: ModelMarket[] = [
     shortName: "GL",
     capability: "通用与编程",
     color: "#24836f",
-    baseCost: 0.88,
   },
 ];
 
-export const initialSellers: SellerSupply[] = [
-  {
-    id: "ds-204",
-    alias: "供给方 DS-204",
-    modelId: "deepseek-v4-flash",
-    provider: "deepseek",
-    remainingBudget: 60,
-    listedBudget: 60,
-    payoutRate: 0.74,
-    reliability: 99.7,
-    latencyMs: 640,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "ds-118",
-    alias: "供给方 DS-118",
-    modelId: "deepseek-v4-flash",
-    provider: "deepseek",
-    remainingBudget: 40,
-    listedBudget: 40,
-    payoutRate: 0.82,
-    reliability: 99.9,
-    latencyMs: 510,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "ds-063",
-    alias: "供给方 DS-063",
-    modelId: "deepseek-v4-flash",
-    provider: "deepseek",
-    remainingBudget: 24,
-    listedBudget: 35,
-    payoutRate: 0.78,
-    reliability: 98.8,
-    latencyMs: 780,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "km-302",
-    alias: "供给方 KM-302",
-    modelId: "kimi-k2-6",
-    provider: "kimi",
-    remainingBudget: 82,
-    listedBudget: 100,
-    payoutRate: 0.79,
-    reliability: 99.5,
-    latencyMs: 720,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "km-071",
-    alias: "供给方 KM-071",
-    modelId: "kimi-k2-6",
-    provider: "kimi",
-    remainingBudget: 38,
-    listedBudget: 50,
-    payoutRate: 0.84,
-    reliability: 99.8,
-    latencyMs: 590,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "mm-416",
-    alias: "供给方 MM-416",
-    modelId: "minimax-m2-7",
-    provider: "minimax",
-    remainingBudget: 46,
-    listedBudget: 55,
-    payoutRate: 0.71,
-    reliability: 99.2,
-    latencyMs: 690,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "mm-188",
-    alias: "供给方 MM-188",
-    modelId: "minimax-m2-7",
-    provider: "minimax",
-    remainingBudget: 26,
-    listedBudget: 40,
-    payoutRate: 0.77,
-    reliability: 99.6,
-    latencyMs: 570,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "gl-221",
-    alias: "供给方 GL-221",
-    modelId: "glm-5-turbo",
-    provider: "glm",
-    remainingBudget: 74,
-    listedBudget: 80,
-    payoutRate: 0.76,
-    reliability: 99.4,
-    latencyMs: 620,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-  {
-    id: "gl-049",
-    alias: "供给方 GL-049",
-    modelId: "glm-5-turbo",
-    provider: "glm",
-    remainingBudget: 33,
-    listedBudget: 45,
-    payoutRate: 0.81,
-    reliability: 99.8,
-    latencyMs: 540,
-    online: true,
-    verified: true,
-    pendingIncome: 0,
-  },
-];
-
-export const initialState: DemoState = {
-  buyerBalance: 18,
-  sellers: initialSellers,
-  trades: [],
+export const healthLabels: Record<SupplyHealthStatus, string> = {
+  healthy: "正常",
+  degraded: "性能下降",
+  open: "已隔离",
+  half_open: "恢复观察",
 };
 
-export const answerByModel: Record<string, string> = {
-  "deepseek-v4-flash":
-    "边际成本，是每多生产或多完成一个单位任务所增加的成本。比如一家咖啡店已经付了房租，再多做一杯咖啡，新增的咖啡豆、杯子和人工就是这杯咖啡的边际成本。它能帮助经营者判断是否值得继续增加产量。",
-  "kimi-k2-6":
-    "边际成本描述的是产量增加一个单位时，总成本随之增加了多少。固定成本通常不会立刻变化，原料、能耗和额外工时则会进入边际成本。比较边际成本与新增收入，可以判断继续生产是否划算。",
-  "minimax-m2-7":
-    "把总成本想成一段正在上升的楼梯：边际成本就是再迈一级需要付出的代价。它只关注“下一份”的新增成本，而不是之前已经投入的全部成本。企业会用它决定下一单是否值得接。",
-  "glm-5-turbo":
-    "边际成本就是多做一件事所新增的成本。例如面包店再烤一炉面包，需要新增面粉、电费和部分人工，这些构成边际成本。只要新增收入高于边际成本，扩大产量通常仍有意义。",
+export const checkTypeLabels: Record<string, string> = {
+  availability: "连通性",
+  latency: "响应速度",
+  capability: "能力一致性",
+  usage: "计量一致性",
+  streaming: "流式完整性",
+  scheduled: "定时探针",
+  manual: "人工复检",
 };
-
-export function cloneInitialState(): DemoState {
-  return JSON.parse(JSON.stringify(initialState)) as DemoState;
-}
