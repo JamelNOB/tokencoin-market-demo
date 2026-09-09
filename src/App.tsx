@@ -18,6 +18,7 @@ import {
   WifiOff,
   XCircle,
 } from "lucide-react";
+import { LoginPage } from "./LoginPage";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { fetchInfrastructureStatus, STATUS_API_URL } from "./api";
 import { checkTypeLabels, healthLabels } from "./data";
@@ -52,6 +53,9 @@ const initialConnection: InfrastructureConnection = {
 
 function App() {
   const [view, setView] = useState<View>("market");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return sessionStorage.getItem("tokencoin_auth") === "true";
+  });
   const [connection, setConnection] =
     useState<InfrastructureConnection>(initialConnection);
   const [refreshing, setRefreshing] = useState(false);
@@ -106,6 +110,22 @@ function App() {
   const liveSnapshot =
     connection.phase === "online" ? connection.snapshot : null;
 
+  if (!isAuthenticated) {
+    return (
+      <LoginPage
+        onLogin={(_apiKey, role) => {
+          sessionStorage.setItem("tokencoin_auth", "true");
+          if (role === "seller") {
+            setView("seller");
+          } else {
+            setView("market");
+          }
+          setIsAuthenticated(true);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -135,6 +155,16 @@ function App() {
           >
             <Store size={18} />
             <span>卖家工作台</span>
+          </button>
+          <button
+            className="nav-item"
+            onClick={() => {
+              sessionStorage.removeItem("tokencoin_auth");
+              setIsAuthenticated(false);
+            }}
+          >
+            <KeyRound size={18} />
+            <span>网关鉴权登录</span>
           </button>
         </nav>
 

@@ -1244,3 +1244,290 @@ button:disabled {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ==========================================================================
+   TokenCoin Antigravity Particle Login Page Styles
+   ========================================================================== */
+
+.login-page-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.login-topbar {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  right: 28px;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: 'Fira Code', monospace;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  color: var(--muted);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(36, 123, 88, 0.5);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.guest-bypass-btn {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  padding: 7px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.guest-bypass-btn:hover {
+  background: #ffffff;
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(233, 93, 56, 0.12);
+}
+
+.login-card-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.login-card {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(222, 219, 210, 0.8);
+  border-radius: 24px;
+  padding: 36px 32px 28px;
+  box-shadow:
+    0 24px 48px -12px rgba(29, 30, 26, 0.08),
+    0 0 1px rgba(29, 30, 26, 0.12);
+  animation: loginCardFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes loginCardFade {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.login-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.login-brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--dark);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3.5px;
+  padding: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(23, 24, 21, 0.15);
+}
+
+.login-brand-mark span:nth-child(1) { width: 4px; height: 12px; border-radius: 2px; background: #ffffff; }
+.login-brand-mark span:nth-child(2) { width: 4px; height: 22px; border-radius: 2px; background: var(--accent); }
+.login-brand-mark span:nth-child(3) { width: 4px; height: 16px; border-radius: 2px; background: #ffffff; }
+
+.login-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
+
+.login-subtitle {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.login-desc {
+  margin: 0 0 22px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.login-desc strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.input-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.key-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  transition: all 0.2s ease;
+}
+
+.key-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(233, 93, 56, 0.14);
+}
+
+.login-submit-btn {
+  height: 44px;
+  background: var(--dark);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(23, 24, 21, 0.12);
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  background: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(233, 93, 56, 0.25);
+}
+
+.quick-presets {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-bottom: 18px;
+}
+
+.presets-label {
+  display: block;
+  font-size: 11.5px;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+
+.preset-chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.preset-chip {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 11.5px;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.preset-chip:hover {
+  background: #ffffff;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.login-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.security-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
